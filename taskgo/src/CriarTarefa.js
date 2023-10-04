@@ -1,4 +1,4 @@
-function CriarTarefa({eventoTeclado, criar, obj}) {
+function CriarTarefa({eventoTeclado, criarTarefa, modo, obj}) {
 
     return (
 
@@ -7,15 +7,8 @@ function CriarTarefa({eventoTeclado, criar, obj}) {
                 <input type='text' value={obj.titulo} onChange={eventoTeclado} name="titulo" placeholder="Título" className="form-control"/>
                 <input type='text' value={obj.descricao} onChange={eventoTeclado} name="descricao" placeholder="Descrição" className="form-control"/>
                 <input type='text' value={obj.prazo} onChange={eventoTeclado} name="prazo" placeholder="Prazo" className="form-control"/>
-                <p className="border rounded">  Selecione a Prioridade da tarefa
-                    <div className="form-check">
-                        <input type='radio' name="prioridade" value={obj.prioridade} onChange={eventoTeclado} id="nao urgente" placeholder="Não urgnete" className="form-check-input"/>Não urgente
-                    </div>
-                    <div className="form-check">
-                        <input type='radio' name="prioridade" value={obj.prioridade} onChange={eventoTeclado} id="urgente" placeholder="Urgene" className="form-check-input"/>Urgente
-                    </div>
-                </p>
-                <input type='button' onClick={criar} value='Salvar' className="btn btn-success"/>
+                <input type='text' value={obj.prioridade} onChange={eventoTeclado} name="prioridade" placeholder="Prioridade" className="form-control"/>
+                <input type='button' value={modo==="cadastro"?"Salvar":"Atualizar"} id="salvar" onClick={criarTarefa} className="btn btn-success"/>
         </form>
     )
 

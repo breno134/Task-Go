@@ -1,10 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import CriarTarefa from './CriarTarefa';
 import ListarTarefa from './ListarTarefa';
 import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [modoCadastro, setModoCadastro] = useState("cadastro");
 
   const [tarefas, setTarefas] = useState([]);
 
@@ -53,6 +54,34 @@ function App() {
       }})
   }
 
+  const prepararTarefa = (tarefaParaEditar) => {
+    setModoCadastro("edicao");
+    setObjTarefa(tarefaParaEditar);
+  };
+
+  const atualizarTarefa = () => {
+    fetch("http://localhost:8080/tarefas/"+objTarefa.id, {
+      method: "put",
+      body: JSON.stringify(objTarefa),
+      headers: {
+        "Content-type": "application/json",
+        "Accept": "application/json",
+      },
+    })
+      .then((retorno) => retorno.json())
+      .then((retornoConvertidoEmJson) => {
+        if (retornoConvertidoEmJson.mensagem !== undefined) {
+          alert(retornoConvertidoEmJson.mensagem);
+        } else {
+          alert("Atualizado com sucesso!");
+        }
+      }).then(()=>{
+        fetch("http://localhost:8080/tarefas")
+        .then((retorno) => retorno.json())
+        .then((retornoConvertidoEmJson) => setTarefas(retornoConvertidoEmJson));
+      });;
+  };
+
   const removerTarefa = (id) =>{
     fetch('http://localhost:8080/tarefas/'+ id,{
       method: "delete"
@@ -76,8 +105,26 @@ function App() {
   return (
     <div className="App">
       <p>{JSON.stringify(tarefa)}</p>
-      <CriarTarefa eventoTeclado={eventoDigitar} criar={criarTarefa} obj={objTarefa}></CriarTarefa>
-      <ListarTarefa lista={tarefas}  remover={removerTarefa}></ListarTarefa>
+      <CriarTarefa 
+      modo={modoCadastro}
+      eventoTeclado={eventoDigitar} 
+      criarTarefa={() => {
+        if (modoCadastro === "cadastro") {
+          criarTarefa();
+        } else if (modoCadastro === "edicao") {
+          atualizarTarefa();
+          setModoCadastro("cadastro");
+        }
+        limparForm();
+      }}
+
+      obj={objTarefa} >
+      </CriarTarefa>
+
+      <ListarTarefa 
+      lista={tarefas} 
+      remover={removerTarefa} 
+      preparar={prepararTarefa}></ListarTarefa>
     </div>
   );
 }

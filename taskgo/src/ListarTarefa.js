@@ -1,6 +1,6 @@
-function ListarTarefa({lista, remover}) {
+function ListarTarefa({lista, remover, preparar}) {
     return (
-        <table className="table table-hover table-bordered table-reponsive">
+        <table className="table table-hover table-bordered">
             <thead>
                 <tr>
                     <td>Id</td>
@@ -21,15 +21,13 @@ function ListarTarefa({lista, remover}) {
                             <td>{obj.descricao}</td>
                             <td>{obj.prazo}</td>
                             <td>{obj.prioridade}</td>
-                            <td type="button" onClick={() => remover(obj.id)} className="btn btn-outline-danger" ><i className="bi bi-trash3"> Remover</i></td>
-                            <td type="button" className="btn btn-outline-primary" ><i class="bi bi-pencil-square"> Editar</i></td>
+                            <td type="button" onClick={() => remover(obj.id)} className="btn btn-outline-danger"><i className="bi bi-trash3"> Remover</i></td>
+                            <td type="button" onClick={() => preparar(obj)} className="btn btn-outline-primary"><i className="bi bi-pencil-square"> Editar</i></td>
                             </tr>
                         ))
                     } 
             </tbody>
-        </table>
-
-        
+        </table>        
     )
 }
 export default ListarTarefa;

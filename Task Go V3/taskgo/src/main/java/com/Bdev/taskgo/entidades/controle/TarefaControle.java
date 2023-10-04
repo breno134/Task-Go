@@ -32,7 +32,7 @@ public class TarefaControle {
         return tarefaServicos.save(tarefa, "Salvar");
     }
 
-    @PutMapping("/tarefas")
+    @PutMapping("/tarefas/{id}")
     public ResponseEntity<?> update(@RequestBody Tarefa tarefa) {
         return tarefaServicos.save(tarefa, "Atualizar");
     }
