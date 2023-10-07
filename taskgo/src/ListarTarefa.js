@@ -1,13 +1,14 @@
-function ListarTarefa({lista, remover, preparar}) {
+function ListarTarefa({lista, remover, preparar, listaFeita}) {
     return (
-        <table className="table table-hover table-bordered">
+        <div className="container container-fluid"><h1 className="text-center">Tarefas Para Fazer</h1>
+        <table className="table table-hover text-center" id="tarefas-para-fazer">
             <thead>
                 <tr>
-                    <td>Id</td>
                     <td>Título</td>
                     <td>Descrição</td>
                     <td>Prazo</td>
                     <td>Prioridade</td>
+                    <td>Situação</td>
                     <td>Ações</td>
                 </tr>
             </thead>
@@ -15,19 +16,24 @@ function ListarTarefa({lista, remover, preparar}) {
                     {
                         lista.map((obj, indice) =>
                         ( 
-                            <tr key={indice}>
-                            <td>{obj.id}</td>
+                            <tr id={indice}>
                             <td>{obj.titulo}</td>
                             <td>{obj.descricao}</td>
                             <td>{obj.prazo}</td>
                             <td>{obj.prioridade}</td>
-                            <td type="button" onClick={() => remover(obj.id)} className="btn btn-outline-danger"><i className="bi bi-trash3"> Remover</i></td>
-                            <td type="button" onClick={() => preparar(obj)} className="btn btn-outline-primary"><i className="bi bi-pencil-square"> Editar</i></td>
+                            <td><input className="form-check-input" type="checkbox" value="tarefa-nCumprida"></input> Tarefa feita</td>
+                            <td type="button" id="botaoRemover" onClick={() => remover(obj.id)} className="btn btn-outline-danger"><i className="bi bi-trash3"> Remover</i></td>
+                            <td type="button" id="botaoEditar" onClick={() => preparar(obj)} className="btn btn-outline-primary"><i className="bi bi-pencil-square"> Editar</i></td>
                             </tr>
                         ))
                     } 
             </tbody>
-        </table>        
+        </table>
+        <div className="container container-fluid"><h1 className="text-center">Tarefas Feitas</h1>
+        <table className="table table-hover text-center">
+        </table>
+        </div>
+        </div>        
     )
 }
 export default ListarTarefa;

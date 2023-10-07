@@ -101,6 +101,7 @@ function App() {
         }
       );
   }
+  
 
   return (
     <div className="App">
@@ -118,11 +119,11 @@ function App() {
         limparForm();
       }}
 
-      obj={objTarefa} >
+      obj={objTarefa}>
       </CriarTarefa>
 
       <ListarTarefa 
-      lista={tarefas} 
+      lista={tarefas}
       remover={removerTarefa} 
       preparar={prepararTarefa}></ListarTarefa>
     </div>
