@@ -16,10 +16,14 @@ public class TarefaServicos {
     @Autowired
     private TarefaResposta tarefaResposta;
 
-    public Iterable<Tarefa> list(){
-        return tarefaRepositorio.findAll();
+    public Iterable<Tarefa> tarefasNaoConcluidas(){
+        return tarefaRepositorio.tarefasBySituacao(0);
     }
     
+    public Iterable<Tarefa> tarefasConcluidas(){
+        return tarefaRepositorio.tarefasBySituacao(1);
+    }
+
     public ResponseEntity<?> save(Tarefa tarefa, String acao){
         if (tarefa.getDescricao().equals("")){
             tarefaResposta.setMensagem("Descrição inválida");

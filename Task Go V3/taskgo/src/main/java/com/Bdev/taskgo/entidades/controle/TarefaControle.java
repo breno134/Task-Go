@@ -18,27 +18,46 @@ import com.Bdev.taskgo.servicos.TarefaServicos;
 @CrossOrigin(origins = "*")
 public class TarefaControle {
     
-
     @Autowired
     private TarefaServicos tarefaServicos;
 
-    @GetMapping("/tarefas")
-    public Iterable<Tarefa> userList (){
-        return tarefaServicos.list();
+    @GetMapping("/tarefasConcluidas")
+    public Iterable<Tarefa> tarefasConcluidas (){
+        return tarefaServicos.tarefasConcluidas();
     }
 
-    @PostMapping("/tarefas")
-    public ResponseEntity<?> save(@RequestBody Tarefa tarefa) {
+   @GetMapping("/tarefasNaoConcluidas")
+    public Iterable<Tarefa> tarefasNaoConcluidas (){
+        return tarefaServicos.tarefasNaoConcluidas();
+    }
+
+    @PostMapping("/tarefasNaoConcluidas")
+    public ResponseEntity<?> salvarTarefaNaoConcluida(@RequestBody Tarefa tarefa) {
         return tarefaServicos.save(tarefa, "Salvar");
     }
 
-    @PutMapping("/tarefas/{id}")
-    public ResponseEntity<?> update(@RequestBody Tarefa tarefa) {
+    @PutMapping("/tarefasNaoConcluidas/{id}")
+    public ResponseEntity<?> atualizarTarefaNaoConcluida(@RequestBody Tarefa tarefa) {
         return tarefaServicos.save(tarefa, "Atualizar");
     }
 
-    @DeleteMapping ("/tarefas/{id}")
-    public ResponseEntity<?> remover(@PathVariable Long id) {
+    @DeleteMapping ("/tarefasNaoConcluidas/{id}")
+    public ResponseEntity<?> removerTarefaNaoConcluida(@PathVariable Long id) {
+        return tarefaServicos.remover(id);
+    }
+
+    @PostMapping("/tarefasConcluidas")
+    public ResponseEntity<?> salvarTarefaConcluida(@RequestBody Tarefa tarefa) {
+        return tarefaServicos.save(tarefa, "Salvar");
+    }
+
+    @PutMapping("/tarefasConcluidas/{id}")
+    public ResponseEntity<?> atualizarTarefaConcluida(@RequestBody Tarefa tarefa) {
+        return tarefaServicos.save(tarefa, "Atualizar");
+    }
+
+    @DeleteMapping ("/tarefasConcluidas/{id}")
+    public ResponseEntity<?> removerTarefaConcluida(@PathVariable Long id) {
         return tarefaServicos.remover(id);
     }
 }
